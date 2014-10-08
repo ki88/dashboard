@@ -1,0 +1,53 @@
+
+html, body{
+    height:100%;
+}
+
+body{
+    margin:0;
+    overflow:hidden;
+}
+
+.settings-dialog-overlay{
+    height:100%;
+    width:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background-color:rgba(0,0,0,0.2);
+}
+
+.settings-dialog{
+    position:absolute;
+    top: 100px;
+    width:400px;
+    margin-left:-200px;
+    left:50%;
+    background-color:white;
+    z-index:10;
+    padding:20px;
+}
+
+.settings-dialog .content{
+    min-height:200px;
+}
+
+.settings-dialog .close-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    cursor:pointer;
+}
+
+.watch-list, .price-chart {
+    height:300px;
+    width:600px;
+    border:1px solid #ccc;
+    margin-top:10px;
+    margin-left:10px;
+}
+
+.company-autocomplete{
+    width:300px;
+}
+

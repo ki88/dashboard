@@ -1,0 +1,3 @@
+<div>Watch List <input type="checkbox" ng-model="settings.watchList"/></div>
+<div>Trade Feed <input type="checkbox" ng-model="settings.tradeFeed"/></div>
+<div ng-repeat="chart in settings.charts">Price Chart({{chart.name}}) <input type="checkbox" ng-model="chart.isActive"/></div>

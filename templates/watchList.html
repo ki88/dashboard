@@ -1,0 +1,29 @@
+<div class="watch-list">
+    <div>
+    <span class="pull-right">
+      <span ng-click="settingsClick()" class="glyphicon glyphicon-cog"></span>
+      <span class="glyphicon glyphicon-question-sign"></span>
+      <span ng-click="closeWidget()" class="glyphicon glyphicon-remove-circle"></span>
+    </span>
+    </div>
+    <table class="table">
+        <thead>
+        <th>Name</th>
+        <th>Last</th>
+        <th>Change</th>
+        <th>Volume</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="quote in quotes">
+            <td>{{quote.name}}</td>
+            <td>{{quote.lastPrice}}</td>
+            <td>{{quote.change}}</td>
+            <td>{{quote.volume}}</td>
+            <td>
+                <span ng-click="addPriceChart({symbol:quote.symbol,name:quote.name})" class="glyphicon glyphicon-plus"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

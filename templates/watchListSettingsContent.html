@@ -1,0 +1,20 @@
+<p>
+    <input current-company="currentCompany" company-autocomplete="" type="text" />
+    <button ng-click="addCompany(currentCompany)" ng-disabled="!canAddCompany()" class="btn"><span class="glyphicon glyphicon-plus"></span></button>
+</p>
+<table class="table">
+    <thead>
+    <th>Name</th>
+    <th>Symbol</th>
+    <th></th>
+    <th></th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in settings">
+        <td>{{item.name}}</td>
+        <td>{{item.symbol}}</td>
+        <td><span ng-click="changePosition(item, -1)" ng-hide="$index==0" class="glyphicon glyphicon-arrow-up"></span></td>
+        <td><span ng-click="changePosition(item, 1)" ng-hide="$index==settings.length-1||!settings.length" class="glyphicon glyphicon-arrow-down"></span></td>
+    </tr>
+    </tbody>
+</table>

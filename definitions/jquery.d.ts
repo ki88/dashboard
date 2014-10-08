@@ -698,6 +698,7 @@ interface JQueryAnimationOptions {
  * Static members of jQuery (those on $ and jQuery themselves)
  */
 interface JQueryStatic {
+    typeahead:(params:any, source:any)=>JQuery
 
     /**
      * Perform an asynchronous HTTP (Ajax) request.
