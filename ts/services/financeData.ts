@@ -4,6 +4,7 @@
 export interface IFinanceData{
     getQuote:(symbol:string)=>ng.IPromise<any>
     autocomplete:(q:string)=>ng.IPromise<any>
+    getPriceChartData:(symbol:string, days:number)=>ng.IPromise<any>
 }
 
 export class FinanceData implements IFinanceData {
@@ -27,6 +28,46 @@ export class FinanceData implements IFinanceData {
                     return {name:item.Name, symbol:item.Symbol};
                 });
                 return deferred.resolve(companies);
+            })
+        return deferred.promise;
+    }
+
+    public getPriceChartData(symbol:string, days:number){
+        var deferred = this.$q.defer();
+        this.$http.jsonp('http://dev.markitondemand.com/Api/v2/InteractiveChart/jsonp?callback=JSON_CALLBACK', {
+            params: {
+                parameters: {
+                    Normalized: false,
+                    NumberOfDays: days,
+                    DataPeriod: 'Day',
+                    Elements: [{
+                        Symbol: symbol,
+                        Type: 'price',
+                        Params: ['c']
+                    }]
+                }
+            }
+        })
+            .success(function(json:any) {
+                var dates = json.Dates || [];
+                var elements = json.Elements || [];
+                var chartSeries = [];
+                var fixDate = function(dateIn) {
+                    var dat = new Date(dateIn);
+                    return Date.UTC(dat.getFullYear(), dat.getMonth(), dat.getDate());
+                };
+
+                if (elements[0]) {
+                    for (var i = 0, datLen = dates.length; i < datLen; i++) {
+                        var dat = fixDate(dates[i]);
+                        var pointData = [
+                            dat,
+                            elements[0].DataSeries['close'].values[i]
+                        ];
+                        chartSeries.push(pointData);
+                    };
+                }
+                return deferred.resolve(chartSeries);
             })
         return deferred.promise;
     }

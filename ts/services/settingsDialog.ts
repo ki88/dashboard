@@ -133,7 +133,7 @@ export class PriceChartSettingsDialog extends SettingsDialogBase {
                 $compile:ng.ICompileService,
                 settingsStorage:ss.ISettingsStorage){
         super((scope:any, params?:any)=>{
-                var settings = params.settings, onChange = params.onChange;
+                var settings = params.settings;
 
                 var lastSettings = settings;
                 scope.settings = angular.copy(settings);
@@ -157,7 +157,6 @@ export class PriceChartSettingsDialog extends SettingsDialogBase {
                     settingsStorage.set(mainSettings);
 
                     lastSettings = angular.copy(scope.settings);
-                    onChange(angular.copy(scope.settings));
                 };
                 scope.reset = ()=>{
                     scope.settings = angular.copy(lastSettings);

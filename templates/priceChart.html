@@ -1,12 +1,11 @@
-<div class="price-chart">
+<div>
     <div>
+        <span style="font-size:12px;font-weight:bold">{{settings.name}} {{settings.period}}</span>
     <span class="pull-right">
       <span ng-click="settingsClick()" class="glyphicon glyphicon-cog"></span>
       <span class="glyphicon glyphicon-question-sign"></span>
       <span ng-click="closeWidget(settings.symbol)" class="glyphicon glyphicon-remove-circle"></span>
     </span>
     </div>
-    <p>
-        it's price chart for {{settings.name}} {{settings.period}}
-    </p>
+    <div class="chart-container"></div>
 </div>
