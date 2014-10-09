@@ -6,7 +6,9 @@ require.config({
         'underscore': '../libs/underscore-min',
         'bootstrap': '../libs/bootstrap/js/bootstrap.min',
         'typeahead': '../libs/typeahead/typeahead',
-        'highcharts': '../libs/highcharts'
+        'highcharts': '../libs/highcharts',
+        'humane': '../libs/humane',
+        'parse': '../libs/parse.min'
     },
     shim: {
         angular: {
@@ -26,11 +28,17 @@ require.config({
         },
         highcharts: {
             exports: 'Highcharts'
+        },
+        humane: {
+            exports: 'humaneDate'
+        },
+        parse: {
+            exports: 'Parse'
         }
     }
 });
 
-require(['angular', 'jquery', 'bootstrap', 'underscore', 'typeahead', 'highcharts'], function () {
+require(['angular', 'jquery', 'bootstrap', 'underscore', 'typeahead', 'highcharts', 'humane', 'parse'], function () {
     require(['app'], function (app) {
         $(function () {
             angular.bootstrap($('html'), [app.name]);

@@ -13,6 +13,7 @@
     <p>
         <button class="btn" ng-click="openMainSettings()">settings</button>
     </p>
+    <div ng-show="settings.tradeFeed" trade-feed="" close-widget="closeTradeFeedWidget"></div>
     <div ng-show="settings.watchList" watch-list="" close-widget="closeWatchListWidget" add-price-chart="addPriceChart"></div>
     <div ng-repeat="chart in getActiveCharts() track by chart.symbol+chart.period" get-chart="chart" close-widget="closePriceChart" price-chart="" class="price-chart"></div>
 </div>

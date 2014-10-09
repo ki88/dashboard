@@ -9,6 +9,7 @@ import settingsDialog = require('services/settingsDialog');
 import companyAutocomplete = require('directives/companyAutocomplete');
 import watchList = require('directives/watchList');
 import priceChart = require('directives/priceChart');
+import tradeFeed = require('directives/tradeFeed');
 
 var app = angular.module('dashboard', []);
 
@@ -24,5 +25,7 @@ app.factory('priceChartSettingsDialog', settingsDialog.initPriceChartSettingsDia
 app.directive('companyAutocomplete', companyAutocomplete.init);
 app.directive('watchList', watchList.init);
 app.directive('priceChart', priceChart.init);
+app.directive('tradeFeed', tradeFeed.init);
+
 
 export = app;

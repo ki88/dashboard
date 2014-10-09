@@ -1,0 +1,19 @@
+<div class="trade-feed">
+    <div>
+    <span class="pull-right">
+      <span ng-click="settingsClick()" class="glyphicon glyphicon-cog"></span>
+      <span class="glyphicon glyphicon-question-sign"></span>
+      <span ng-click="closeWidget()" class="glyphicon glyphicon-remove-circle"></span>
+    </span>
+    </div>
+    <div class="content">
+        <div ng-repeat="ua in usersActivity" class="entry">
+            <div>{{ua.user.name}}</div>
+            <div><img ng-src="{{ua.user.pictureUrl}}"/></div>
+            <div>{{{'1':'Bought','2':'Sell'}[ua.action]}}</div>
+            <div>{{ua.amount}} of {{ua.company}}</div>
+            <div>@ {{ua.price}} {{ua.currency}}</div>
+            <div ng-bind="beforeNow(ua.date)"></div>
+        </div>
+    </div>
+</div>

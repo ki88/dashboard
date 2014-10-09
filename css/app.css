@@ -39,12 +39,32 @@ body{
     cursor:pointer;
 }
 
-.watch-list, .price-chart {
-    height:300px;
+.watch-list, .price-chart, .trade-feed {
     width:600px;
     border:1px solid #ccc;
     margin-top:10px;
     margin-left:10px;
+}
+
+.watch-list, .price-chart{
+    height:300px;
+}
+
+.trade-feed {
+    height: 610px;
+    float:right;
+    margin:0;
+    margin-right:30px;
+}
+
+.trade-feed .content{
+    height: 580px;
+    overflow:auto;
+    margin-top:25px;
+}
+
+.trade-feed .entry{
+    border-bottom:1px solid gray;
 }
 
 .company-autocomplete{

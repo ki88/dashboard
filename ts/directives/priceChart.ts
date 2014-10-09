@@ -51,7 +51,7 @@ export function init(priceChartSettingsDialog:sd.ISettingsDialog, financeData:fd
         controller: function($scope){
             $scope.settings = $scope.getChart();
             $scope.settingsClick = ()=>{
-                priceChartSettingsDialog.open({settings:$scope.settings);
+                priceChartSettingsDialog.open({settings:$scope.settings});
             }
         },
         templateUrl: 'templates/priceChart.html'

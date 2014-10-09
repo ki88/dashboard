@@ -16,6 +16,11 @@ export function init($scope, settingsDialog, settingsStorage){
         settingsStorage.set($scope.settings);
     };
 
+    $scope.closeTradeFeedWidget = function() {
+        $scope.settings.tradeFeed = false;
+        settingsStorage.set($scope.settings);
+    }
+
     $scope.getActiveCharts = ()=>{
         return _.filter($scope.settings.charts, (chart:any)=>{
             return chart.isActive;
