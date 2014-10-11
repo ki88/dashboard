@@ -29,8 +29,14 @@ export function init($q:ng.IQService, watchListSettingsDialog:sd.ISettingsDialog
                 watchListSettingsDialog.open();
             };
 
-            watchListSettingsStorage.onChange((newSettings?:any)=>{
+            var onSettingsChange = (newSettings?:any)=>{
                 applySettings(newSettings);
+            };
+
+            watchListSettingsStorage.onChange(onSettingsChange);
+
+            $scope.$on('$destroy', ()=>{
+                watchListSettingsStorage.removeOnChangeListener(onSettingsChange);
             });
         },
         templateUrl: 'templates/watchList.html'

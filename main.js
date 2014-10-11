@@ -3,6 +3,7 @@ require.config({
     paths: {
         'jquery': '../libs/jquery-2.0.1.min',
         'angular': '../libs/angular.min',
+        'angularRoute': '../libs/angular-route',
         'underscore': '../libs/underscore-min',
         'bootstrap': '../libs/bootstrap/js/bootstrap.min',
         'typeahead': '../libs/typeahead/typeahead',
@@ -14,14 +15,17 @@ require.config({
         angular: {
             exports: 'angular'
         },
+        angularRoute: {
+            deps: ['angular']
+        },
         jquery: {
             exports: 'jQuery'
         },
         bootstrap: {
-            deps: ["jquery"]
+            deps: ['jquery']
         },
         typeahead: {
-            deps: ["jquery"]
+            deps: ['jquery']
         },
         underscore: {
             exports: '_'
@@ -38,7 +42,7 @@ require.config({
     }
 });
 
-require(['angular', 'jquery', 'bootstrap', 'underscore', 'typeahead', 'highcharts', 'humane', 'parse'], function () {
+require(['angular', 'angularRoute', 'jquery', 'bootstrap', 'underscore', 'typeahead', 'highcharts', 'humane', 'parse'], function () {
     require(['app'], function (app) {
         $(function () {
             angular.bootstrap($('html'), [app.name]);

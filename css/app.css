@@ -17,6 +17,10 @@ body {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(150, 150, 150, .6);
 }
 
+.btn{
+    border-radius: 2px;
+}
+
 span.twitter-typeahead .tt-dropdown-menu {
     min-width: 350px;
 }
@@ -169,6 +173,10 @@ table.dashboard-table tbody td{
 
 .widget.watch-list table tbody .actions{
     width:20px;
+}
+
+.widget.watch-list table tbody .actions a{
+    color:black;
 }
 
 @media (min-width: 748px) {

@@ -1,11 +1,16 @@
 /// <reference path="../../definitions/angular.d.ts" />
 /// <reference path="../../definitions/underscore.d.ts" />
 
+export interface ISettingsOnChangeHandler{
+    (settings?:any):void
+}
+
 export interface ISettingsStorage{
     get:()=>any
     set:(settings:any)=>void
     reset:()=>void
-    onChange:(handler:(settings?:any)=>void)=>any
+    onChange:(handler:ISettingsOnChangeHandler)=>void
+    removeOnChangeListener:(handler:ISettingsOnChangeHandler)=>void
 }
 
 export class SettingsStorage implements ISettingsStorage {
@@ -36,8 +41,15 @@ export class SettingsStorage implements ISettingsStorage {
         this.fire(angular.copy(this.stgs));
     }
 
-    public onChange(handler:(settings?:any)=>void){
+    public onChange(handler:ISettingsOnChangeHandler){
         this.handlers.push(handler);
+    }
+
+    public removeOnChangeListener(handler:ISettingsOnChangeHandler){
+        var index = this.handlers.indexOf(handler);
+        if (index > -1) {
+            this.handlers.splice(index, 1);
+        }
     }
 }
 

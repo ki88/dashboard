@@ -1,15 +1,19 @@
 /// <reference path="../../definitions/underscore.d.ts" />
+import sd = require('services/settingsDialog')
+import ss = require('services/settingsStorage')
 
-export function init($scope, settingsDialog, settingsStorage){
+export function init($scope, settingsDialog:sd.SettingsDialog, settingsStorage:ss.SettingsStorage){
     $scope.settings = settingsStorage.get();
 
     $scope.openMainSettings = ()=> {
         settingsDialog.open();
     };
 
-    settingsStorage.onChange((stgs)=>{
+    var onSettingsChange = (stgs?)=>{
         $scope.settings = stgs;
-    });
+    };
+
+    settingsStorage.onChange(onSettingsChange);
 
     $scope.closeWatchListWidget = ()=>{
         $scope.settings.watchList = false;
@@ -47,4 +51,8 @@ export function init($scope, settingsDialog, settingsStorage){
         chart.isActive = false;
         settingsStorage.set($scope.settings);
     };
+
+    $scope.$on('$destroy', ()=>{
+        settingsStorage.removeOnChangeListener(onSettingsChange);
+    });
 }

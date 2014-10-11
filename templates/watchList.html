@@ -24,15 +24,15 @@
             </thead>
             <tbody>
             <tr ng-repeat="quote in quotes">
-                <td class="symbol"><a href="">{{quote.symbol}}</a></td>
+                <td class="symbol"><a href="#/details/{{quote.symbol}}">{{quote.symbol}}</a></td>
                 <td class="company-name">{{quote.name}}</td>
                 <td>{{quote.lastPrice}}</td>
                 <td ng-class="{red: quote.change<0, green: quote.change>0}">{{quote.change}}</td>
                 <td>{{quote.volume}}</td>
                 <td class="actions">
                     <span ng-click="addPriceChart({symbol:quote.symbol,name:quote.name})" class="control chart glyphicon glyphicon-stats"></span>
-                    <span class="control buy glyphicon glyphicon-shopping-cart"></span>
-                    <span class="control details glyphicon glyphicon-search"></span>
+                    <a ng-href="#/buy/{{quote.symbol}}"><span class="control buy glyphicon glyphicon-shopping-cart"></span></a>
+                    <a ng-href="#/details/{{quote.symbol}}"><span class="control details glyphicon glyphicon-search"></span></a>
                 </td>
             </tr>
             </tbody>
