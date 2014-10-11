@@ -1,9 +1,6 @@
 /// <reference path="../../definitions/jquery.d.ts" />
+/// <reference path="../../definitions/typeahead.d.ts" />
 import fd = require('services/financeData')
-
-/*interface JQueryStatic {
-    typeahead:(params:any)=>JQuery
-}*/
 
 export function init(financeData:fd.IFinanceData) {
     return {
@@ -12,7 +9,7 @@ export function init(financeData:fd.IFinanceData) {
             currentCompany: '='
         },
         link: function(scope, element){
-            (<any>$(element))
+            ($(element))
                 .addClass('company-autocomplete')
                 .typeahead({
                     hint: false,
@@ -31,7 +28,7 @@ export function init(financeData:fd.IFinanceData) {
                         });
                     }
                 })
-                .on('typeahead:selected', function(e, company){
+                .on('typeahead:selected', function(e, company?){
                     scope.currentCompany = company;
                     scope.$apply();
                 });

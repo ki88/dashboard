@@ -7,11 +7,13 @@ import buyController = require('controllers/buyController');
 import financeData = require('services/financeData');
 import settingsStorage = require('services/settingsStorage');
 import settingsDialog = require('services/settingsDialog');
+import tooltips = require('services/tooltips');
 
 import companyAutocomplete = require('directives/companyAutocomplete');
 import watchList = require('directives/watchList');
 import priceChart = require('directives/priceChart');
 import tradeFeed = require('directives/tradeFeed');
+import tooltip = require('directives/tooltip');
 
 var app = angular.module('dashboard', ['ngRoute']);
 
@@ -39,6 +41,7 @@ app.controller('dashboardController', dashboardController.init);
 app.controller('detailsController', detailsController.init);
 app.controller('buyController', buyController.init);
 
+app.constant('tooltips', tooltips);
 app.factory('financeData', financeData.init);
 app.factory('settingsStorage', settingsStorage.initMain);
 app.factory('watchListSettingsStorage', settingsStorage.initWatchList);
@@ -50,6 +53,7 @@ app.directive('companyAutocomplete', companyAutocomplete.init);
 app.directive('watchList', watchList.init);
 app.directive('priceChart', priceChart.init);
 app.directive('tradeFeed', tradeFeed.init);
+app.directive('widgetTooltip', tooltip.init);
 
 
 export = app;
