@@ -1,29 +1,41 @@
-<div class="watch-list">
-    <div>
-    <span class="pull-right">
-      <span ng-click="settingsClick()" class="glyphicon glyphicon-cog"></span>
-      <span class="glyphicon glyphicon-question-sign"></span>
-      <span ng-click="closeWidget()" class="glyphicon glyphicon-remove-circle"></span>
-    </span>
+<div class="widget watch-list">
+    <div class="header">
+              <span class="header-icon">
+                <span class="glyphicon glyphicon-list"></span>
+              </span>
+        <span class="description">Watch List</span>
+              <span class="controls">
+                <span ng-click="settingsClick()" class="control glyphicon glyphicon-cog"></span>
+                <span class="control glyphicon glyphicon-question-sign"></span>
+                <span ng-click="closeWidget()" class="control glyphicon glyphicon-remove"></span>
+              </span>
     </div>
-    <table class="table">
-        <thead>
-        <th>Name</th>
-        <th>Last</th>
-        <th>Change</th>
-        <th>Volume</th>
-        <th>Actions</th>
-        </thead>
-        <tbody>
-        <tr ng-repeat="quote in quotes">
-            <td>{{quote.name}}</td>
-            <td>{{quote.lastPrice}}</td>
-            <td>{{quote.change}}</td>
-            <td>{{quote.volume}}</td>
-            <td>
-                <span ng-click="addPriceChart({symbol:quote.symbol,name:quote.name})" class="glyphicon glyphicon-plus"></span>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="content">
+        <table class="table dashboard-table">
+            <thead>
+            <tr>
+                <th class="symbol-header">Symbol</th>
+                <th class="company-name-header">Name</th>
+                <th>Last</th>
+                <th>Change</th>
+                <th>Volume</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="quote in quotes">
+                <td class="symbol"><a href="">{{quote.symbol}}</a></td>
+                <td class="company-name">{{quote.name}}</td>
+                <td>{{quote.lastPrice}}</td>
+                <td ng-class="{red: quote.change<0, green: quote.change>0}">{{quote.change}}</td>
+                <td>{{quote.volume}}</td>
+                <td class="actions">
+                    <span ng-click="addPriceChart({symbol:quote.symbol,name:quote.name})" class="control chart glyphicon glyphicon-stats"></span>
+                    <span class="control buy glyphicon glyphicon-shopping-cart"></span>
+                    <span class="control details glyphicon glyphicon-search"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

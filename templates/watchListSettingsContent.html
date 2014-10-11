@@ -1,20 +1,34 @@
-<p>
-    <input current-company="currentCompany" company-autocomplete="" type="text" />
-    <button ng-click="addCompany(currentCompany)" ng-disabled="!canAddCompany()" class="btn"><span class="glyphicon glyphicon-plus"></span></button>
-</p>
-<table class="table">
-    <thead>
-    <th>Name</th>
-    <th>Symbol</th>
-    <th></th>
-    <th></th>
-    </thead>
-    <tbody>
-    <tr ng-repeat="item in settings">
-        <td>{{item.name}}</td>
-        <td>{{item.symbol}}</td>
-        <td><span ng-click="changePosition(item, -1)" ng-hide="$index==0" class="glyphicon glyphicon-arrow-up"></span></td>
-        <td><span ng-click="changePosition(item, 1)" ng-hide="$index==settings.length-1||!settings.length" class="glyphicon glyphicon-arrow-down"></span></td>
-    </tr>
-    </tbody>
-</table>
+<div class="settings-content watch-list-settings-content">
+    <div class="input-group">
+        <input current-company="currentCompany" company-autocomplete="" type="text" class="form-control" placeholder="Select Product"/>
+            <span class="input-group-btn">
+              <button ng-click="addCompany(currentCompany)" ng-disabled="!canAddCompany()"  class="btn btn-default">
+                  <span class="control glyphicon glyphicon-plus"></span>
+              </button>
+            </span>
+    </div>
+    <div class="companies">
+        <table class="table dashboard-table">
+            <thead>
+            <tr>
+                <th class="company-name">Name</th>
+                <th>Symbol</th>
+                <th class="arrow"></th>
+                <th class="arrow"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in settings">
+                <td>{{item.name}}</td>
+                <td>{{item.symbol}}</td>
+                <td>
+                    <span ng-click="changePosition(item, -1)" ng-hide="$index==0" class="control glyphicon glyphicon-arrow-up"></span>
+                </td>
+                <td>
+                    <span ng-click="changePosition(item, 1)" ng-hide="$index==settings.length-1||!settings.length" class="control glyphicon glyphicon-arrow-down"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

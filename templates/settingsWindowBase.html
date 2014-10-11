@@ -1,9 +1,19 @@
 <div class="settings-dialog-overlay">
-    <div class="settings-dialog">
-        <div class="close-btn" ng-click="close()">X</div>
-        <div class="content"></div>
-        <p>
-            <button class="btn" ng-click="save()" ng-disabled="!canSave()">save</button> <button class="btn" ng-click="close()">cancel</button> <button class="btn" ng-click="reset()">reset</button>
-        </p>
+    <div class="settings-dialog widget">
+        <div class="header">
+            <span class="description">{{header}}</span>
+        <span class="controls">
+          <span ng-click="close()" class="control glyphicon glyphicon-remove"></span>
+        </span>
+        </div>
+        <div class="content">
+        </div>
+        <div class="btns-panel">
+            <button class="btn btn-primary" ng-click="save()" ng-disabled="!canSave()">save</button>
+          <span class="pull-right">
+            <button class="btn btn-default" ng-click="close()">cancel</button> 
+            <button class="btn btn-danger" ng-click="reset()">reset</button>
+          </span>
+        </div>
     </div>
 </div>

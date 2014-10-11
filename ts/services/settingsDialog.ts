@@ -47,6 +47,8 @@ export class SettingsDialog extends SettingsDialogBase {
                 settingsStorage:ss.ISettingsStorage,
                 watchListSettingsStorage:ss.ISettingsStorage){
         super((scope:any)=>{
+                scope.header = 'Dashboard Settings';
+
                 scope.settings = settingsStorage.get();
                 scope.save = function(){
                     settingsStorage.set(scope.settings);
@@ -79,6 +81,8 @@ export class WatchListSettingsDialog extends SettingsDialogBase {
                 $compile:ng.ICompileService,
                 watchListSettingsStorage:ss.ISettingsStorage){
         super((scope:any)=>{
+                scope.header = 'Watch List Settings';
+
                 scope.settings = watchListSettingsStorage.get();
 
                 scope.addCompany = (company)=>{
@@ -133,6 +137,8 @@ export class PriceChartSettingsDialog extends SettingsDialogBase {
                 $compile:ng.ICompileService,
                 settingsStorage:ss.ISettingsStorage){
         super((scope:any, params?:any)=>{
+                scope.header = 'Price Chart Settings';
+
                 var settings = params.settings;
 
                 var lastSettings = settings;

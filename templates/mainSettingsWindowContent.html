@@ -1,3 +1,29 @@
-<div>Watch List <input type="checkbox" ng-model="settings.watchList"/></div>
-<div>Trade Feed <input type="checkbox" ng-model="settings.tradeFeed"/></div>
-<div ng-repeat="chart in settings.charts">Price Chart({{chart.name}}) <input type="checkbox" ng-model="chart.isActive"/></div>
+<div class="settings-content main-settings-content">
+    <div class="entry">
+        <span class="icon glyphicon glyphicon-list"></span>
+            <span class="description">
+              Watch List
+            </span>
+            <span class="check">
+              <label><input ng-model="settings.watchList" type="checkbox" name="checkbox" value="value"> Show</label>
+            </span>
+    </div>
+    <div class="entry">
+        <span class="icon glyphicon glyphicon-user"></span>
+            <span class="description">
+              Trade Feed
+            </span>
+            <span class="check">
+              <label><input ng-model="settings.tradeFeed" type="checkbox" name="checkbox" value="value"> Show</label>
+            </span>
+    </div>
+    <div ng-repeat="chart in settings.charts" class="entry">
+        <span class="icon glyphicon glyphicon-stats"></span>
+            <span class="description">
+              Price Chart ({{chart.name}})
+            </span>
+            <span class="check">
+              <label><input ng-model="chart.isActive" type="checkbox" name="checkbox" value="value"> Show</label>
+            </span>
+    </div>
+</div>

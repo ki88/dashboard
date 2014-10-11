@@ -1,19 +1,30 @@
-<div class="trade-feed">
-    <div>
-    <span class="pull-right">
-      <span ng-click="settingsClick()" class="glyphicon glyphicon-cog"></span>
-      <span class="glyphicon glyphicon-question-sign"></span>
-      <span ng-click="closeWidget()" class="glyphicon glyphicon-remove-circle"></span>
-    </span>
+<div class="widget trade-feed">
+    <div class="header">
+        <span class="header-icon">
+            <span class="glyphicon glyphicon-user"></span>
+        </span>
+        <span class="description">Trade Feed</span>
+        <span class="controls">
+            <span class="control glyphicon glyphicon-question-sign"></span>
+            <span ng-click="closeWidget()" class="control glyphicon glyphicon-remove"></span>
+        </span>
     </div>
-    <div class="content">
+    <div class="users-activity">
         <div ng-repeat="ua in usersActivity" class="entry">
-            <div>{{ua.user.name}}</div>
-            <div><img ng-src="{{ua.user.pictureUrl}}"/></div>
-            <div>{{{'1':'Bought','2':'Sell'}[ua.action]}}</div>
-            <div>{{ua.amount}} of {{ua.company}}</div>
-            <div>@ {{ua.price}} {{ua.currency}}</div>
-            <div ng-bind="beforeNow(ua.date)"></div>
+            <div class="deal-info">
+                <div class="action">{{{'1':'Bought','2':'Sell'}[ua.action]}}</div>
+                <div class="amount">{{ua.amount}} of {{ua.company}}</div>
+                <div class="price">@ {{ua.price}} {{ua.currency}}</div>
+            </div>
+            <div class="user-info">
+                <div class="photo">
+                    <img ng-src="{{ua.user.pictureUrl}}" />
+                </div>
+                <div class="user-name">{{ua.user.name}}</div>
+            </div>
+            <div class="additional-info">
+                <span class="time-ago">{{beforeNow(ua.date)}}</span>
+            </div>
         </div>
     </div>
 </div>

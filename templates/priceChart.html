@@ -1,11 +1,14 @@
-<div>
-    <div>
-        <span style="font-size:12px;font-weight:bold">{{settings.name}} {{settings.period}}</span>
-    <span class="pull-right">
-      <span ng-click="settingsClick()" class="glyphicon glyphicon-cog"></span>
-      <span class="glyphicon glyphicon-question-sign"></span>
-      <span ng-click="closeWidget(settings.symbol)" class="glyphicon glyphicon-remove-circle"></span>
-    </span>
+<div class="widget price-chart">
+    <div class="header">
+              <span class="header-icon">
+                <span class="glyphicon glyphicon-stats"></span>
+              </span>
+        <span class="description">Price Chart ({{settings.name}})</span>
+              <span class="controls">
+                <span ng-click="settingsClick()" class="control glyphicon glyphicon-cog"></span>
+                <span class="control glyphicon glyphicon-question-sign"></span>
+                <span ng-click="closeWidget(settings.symbol)" class="control glyphicon glyphicon-remove"></span>
+              </span>
     </div>
     <div class="chart-container"></div>
 </div>
