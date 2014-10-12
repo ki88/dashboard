@@ -11,9 +11,9 @@
         <div class="col-md-7 widgets-container">
             <div ng-show="settings.watchList" watch-list="" close-widget="closeWatchListWidget" add-price-chart="addPriceChart" class="col-md-12">
             </div>
-            <div  ng-if="settings.chartsAsNewWidgets" is-multiple="false" ng-repeat="chart in getActiveCharts() track by chart.symbol+chart.period" get-chart="chart" close-widget="closePriceChart" price-chart="" class="col-md-12">
+            <div  ng-if="settings.chartsAsNewWidgets" is-multiple-opt="false" ng-repeat="chart in getActiveCharts() track by chart.symbol+chart.period" get-chart="chart" close-widget="closePriceChart" price-chart="" class="col-md-12">
             </div>
-            <div ng-if="!settings.chartsAsNewWidgets" is-multiple="true" get-charts="getActiveCharts()" close-widget="closePriceChart" price-chart="" class="col-md-12"></div>
+            <div ng-if="!settings.chartsAsNewWidgets" is-multiple-opt="true" get-charts="getActiveCharts()" close-widget="closePriceChart" price-chart="" class="col-md-12"></div>
         </div>
         <div class="col-md-5 widgets-container">
             <div ng-show="settings.tradeFeed" trade-feed="" close-widget="closeTradeFeedWidget" class="col-md-12">

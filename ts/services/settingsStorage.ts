@@ -1,27 +1,39 @@
 /// <reference path="../../definitions/angular.d.ts" />
 /// <reference path="../../definitions/underscore.d.ts" />
+import m = require('model/model')
 
-export interface ISettingsOnChangeHandler{
-    (settings?:any):void
+export interface ISettingsOnChangeHandler<T>{
+    (settings?:T):void
 }
 
-export interface ISettingsStorage{
+export interface ISettingsStorage<T>{
     get:()=>any
-    set:(settings:any)=>void
+    set:(settings:T)=>void
     reset:()=>void
-    onChange:(handler:ISettingsOnChangeHandler)=>void
-    removeOnChangeListener:(handler:ISettingsOnChangeHandler)=>void
+    onChange:(handler:ISettingsOnChangeHandler<T>)=>void
+    removeOnChangeListener:(handler:ISettingsOnChangeHandler<T>)=>void
 }
 
-export class SettingsStorage implements ISettingsStorage {
-    constructor(private defStgs:any, private key:string){
+export interface IDashboardSettings {
+    watchList:boolean
+    tradeFeed:boolean
+    charts:m.IChart[]
+    chartsAsNewWidgets:boolean
+}
+
+export interface IWatchListSettings{
+    [index:number]:m.ICompanyInfo
+}
+
+export class SettingsStorage<T> implements ISettingsStorage<T> {
+    constructor(private defStgs:T, private key:string){
         this.defaultSettings = angular.copy(this.defStgs);
     }
 
-    private defaultSettings:any
-    private handlers:{(settings?:any):void;}[] = []
+    private defaultSettings:T
+    private handlers:{(settings?:T):void;}[] = []
 
-    private fire(s:any){
+    private fire(s:T){
         _.each(this.handlers, function(handler){
             handler(s);
         });
@@ -39,7 +51,7 @@ export class SettingsStorage implements ISettingsStorage {
         return angular.copy(settings);
     }
 
-    public set(settings:any){
+    public set(settings:T){
         var settingsStr = JSON.stringify(settings);
         localStorage.setItem(this.key, settingsStr);
         this.fire(angular.copy(settings));
@@ -51,11 +63,11 @@ export class SettingsStorage implements ISettingsStorage {
         this.fire(angular.copy(this.defaultSettings));
     }
 
-    public onChange(handler:ISettingsOnChangeHandler){
+    public onChange(handler:ISettingsOnChangeHandler<T>){
         this.handlers.push(handler);
     }
 
-    public removeOnChangeListener(handler:ISettingsOnChangeHandler){
+    public removeOnChangeListener(handler:ISettingsOnChangeHandler<T>){
         var index = this.handlers.indexOf(handler);
         if (index > -1) {
             this.handlers.splice(index, 1);
@@ -63,7 +75,7 @@ export class SettingsStorage implements ISettingsStorage {
     }
 }
 
-var defaults = {
+var defaults:IDashboardSettings = {
     watchList:true,
     tradeFeed:true,
     charts: [
@@ -77,12 +89,12 @@ var defaults = {
 };
 
 export function initMain(){
-    return new SettingsStorage(defaults, 'watch-list-settings');
+    return new SettingsStorage<IDashboardSettings>(defaults, 'watch-list-settings');
 }
 
 export function initWatchList(){
-    var defs = _.map(defaults.charts, (chart:any)=>{
+    var defs:IWatchListSettings = _.map(defaults.charts, (chart:m.IChart)=>{
         return {symbol:chart.symbol, name:chart.name};
     });
-    return new SettingsStorage(defs, 'dashboard-settings');
+    return new SettingsStorage<IWatchListSettings>(defs, 'dashboard-settings');
 }

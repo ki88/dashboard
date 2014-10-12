@@ -2,17 +2,30 @@
 import sd = require('services/settingsDialog')
 import ss = require('services/settingsStorage')
 import fd = require('services/financeData')
+import m = require('model/model')
 
-export function init(priceChartSettingsDialog:sd.ISettingsDialog, financeData:fd.IFinanceData, settingsStorage:ss.ISettingsStorage, errors:any, $q:ng.IQService) {
+export interface IPriceChartScope extends ng.IScope{
+    getChart: ()=>m.IChart
+    getCharts: ()=>m.IChart[]
+    isMultiple:boolean
+    isMultipleOpt:string
+    closeWidget: (symbol:void)=>void
+    message:string
+    header:string
+    settingsClick:()=>void
+    settings:m.IChart
+}
+
+export function init(priceChartSettingsDialog:sd.ISettingsDialog, financeData:fd.IFinanceData, settingsStorage:ss.ISettingsStorage<ss.IDashboardSettings>, errors:any, $q:ng.IQService) {
     return {
         restrict: 'A',
         scope: {
             getChart: '&',
             getCharts: '&',
-            isMultiple: '@',
+            isMultipleOpt: '@',
             closeWidget: '='
         },
-        link: function(scope, element){
+        link: function(scope:IPriceChartScope, element){
             var countPeriodDays = (period)=>{
                 var d2 = new Date(), d1 = new Date(), months = parseInt(period);
                 d1.setMonth(d1.getMonth() - months);
@@ -40,7 +53,7 @@ export function init(priceChartSettingsDialog:sd.ISettingsDialog, financeData:fd
                 }
             }
 
-            scope.isMultiple = scope.isMultiple=='true';
+            scope.isMultiple = scope.isMultipleOpt=='true';
 
 
             if(scope.isMultiple){
@@ -48,7 +61,7 @@ export function init(priceChartSettingsDialog:sd.ISettingsDialog, financeData:fd
 
                 var days = countPeriodDays('12m');
 
-                var charts = [];
+                var charts:m.IChart[] = [];
 
                 var onChange = (settings?)=>{
                     scope.message = null;
@@ -64,11 +77,11 @@ export function init(priceChartSettingsDialog:sd.ISettingsDialog, financeData:fd
                     if(!isAlike(newCharts, charts)){
                         charts = newCharts;
 
-                        var promises = _.map(charts, (chart:any)=>{
+                        var promises = _.map(charts, (chart:m.IChart)=>{
                             return financeData.getPriceChartData(chart.symbol, days);
                         });
                         $q.all(promises).then(
-                            (chartsData:any)=>{
+                            (chartsData:any[])=>{
                                 scope.message = null;
 
                                 if(_.isEmpty(_.flatten(chartsData))){
@@ -125,7 +138,7 @@ export function init(priceChartSettingsDialog:sd.ISettingsDialog, financeData:fd
                     });
             }
         },
-        controller: function($scope){
+        controller: function($scope:IPriceChartScope){
             $scope.settings = $scope.getChart();
             $scope.settingsClick = ()=>{
                 priceChartSettingsDialog.open({settings:$scope.settings});

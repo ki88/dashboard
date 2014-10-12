@@ -1,8 +1,13 @@
 import fd = require('services/financeData')
+import m = require('model/model')
 
-export function init($scope, $routeParams, financeData:fd.IFinanceData){
+export interface IBuyScope extends ng.IScope {
+    product: m.IProductDetails
+}
+
+export function init($scope:IBuyScope, $routeParams, financeData:fd.IFinanceData){
     financeData.getQuote($routeParams.symbol).then(
-        (product)=>{
+        (product:m.IProductDetails)=>{
             $scope.product = product;
         }
     )

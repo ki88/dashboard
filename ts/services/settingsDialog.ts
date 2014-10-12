@@ -1,6 +1,7 @@
 /// <reference path="../../definitions/angular.d.ts" />
 /// <reference path="../../definitions/underscore.d.ts" />
 import ss = require('services/settingsStorage')
+import m = require('model/model')
 
 export interface ISettingsDialog {
     open:(params?:any)=>void
@@ -44,8 +45,8 @@ export class SettingsDialog extends SettingsDialogBase {
                 $http:ng.IHttpService,
                 $rootScope:ng.IRootScopeService,
                 $compile:ng.ICompileService,
-                settingsStorage:ss.ISettingsStorage,
-                watchListSettingsStorage:ss.ISettingsStorage){
+                settingsStorage:ss.ISettingsStorage<ss.IDashboardSettings>,
+                watchListSettingsStorage:ss.ISettingsStorage<ss.IWatchListSettings>){
         super((scope:any)=>{
                 scope.header = 'Dashboard Settings';
 
@@ -79,8 +80,8 @@ export class WatchListSettingsDialog extends SettingsDialogBase {
                 $http:ng.IHttpService,
                 $rootScope:ng.IRootScopeService,
                 $compile:ng.ICompileService,
-                watchListSettingsStorage:ss.ISettingsStorage,
-                settingsStorage:ss.ISettingsStorage){
+                watchListSettingsStorage:ss.ISettingsStorage<ss.IWatchListSettings>,
+                settingsStorage:ss.ISettingsStorage<ss.IDashboardSettings>){
         super((scope:any)=>{
                 scope.header = 'Watch List Settings';
 
@@ -139,7 +140,7 @@ export class PriceChartSettingsDialog extends SettingsDialogBase {
                 $http:ng.IHttpService,
                 $rootScope:ng.IRootScopeService,
                 $compile:ng.ICompileService,
-                settingsStorage:ss.ISettingsStorage){
+                settingsStorage:ss.ISettingsStorage<ss.IDashboardSettings>){
         super((scope:any, params?:any)=>{
                 scope.header = 'Price Chart Settings';
 
@@ -151,7 +152,7 @@ export class PriceChartSettingsDialog extends SettingsDialogBase {
                 var allCharts = mainSettings.charts;
 
                 scope.save = ()=>{
-                    var chart = _.find(allCharts, (chart:any)=>{
+                    var chart = _.find(allCharts, (chart:m.IChart)=>{
                         return chart.symbol == scope.settings.symbol && !chart.isActive;
                     });
                     if(chart){
@@ -159,7 +160,7 @@ export class PriceChartSettingsDialog extends SettingsDialogBase {
                         allCharts.splice(i, 1);
                         chart.isActive = true;
                     }
-                    var oldChart = _.find(allCharts, (chart:any)=>{
+                    var oldChart = _.find(allCharts, (chart:m.IChart)=>{
                         return chart.symbol == lastSettings.symbol;
                     });
                     var index = allCharts.indexOf(oldChart);
@@ -183,7 +184,7 @@ export class PriceChartSettingsDialog extends SettingsDialogBase {
 
                 scope.canSave = ()=>{
                     return scope.currentCompany && !angular.equals(scope.settings, lastSettings) &&
-                        !(_.find(allCharts, (chart:any)=>{
+                        !(_.find(allCharts, (chart:m.IChart)=>{
                             return chart.symbol == scope.settings.symbol && chart.isActive;
                         }) && scope.settings.symbol != lastSettings.symbol);
                 };
@@ -197,8 +198,8 @@ export function initSettingsDialog($q:ng.IQService,
                                   $http:ng.IHttpService,
                                   $rootScope:ng.IRootScopeService,
                                   $compile:ng.ICompileService,
-                                  settingsStorage:ss.ISettingsStorage,
-                                  watchListSettingsStorage:ss.ISettingsStorage){
+                                  settingsStorage:ss.ISettingsStorage<ss.IDashboardSettings>,
+                                  watchListSettingsStorage:ss.ISettingsStorage<ss.IWatchListSettings>){
     return new SettingsDialog($q, $http, $rootScope, $compile, settingsStorage, watchListSettingsStorage);
 }
 
@@ -206,8 +207,8 @@ export function initWatchListSettingsDialog($q:ng.IQService,
                                   $http:ng.IHttpService,
                                   $rootScope:ng.IRootScopeService,
                                   $compile:ng.ICompileService,
-                                  watchListSettingsStorage:ss.ISettingsStorage,
-                                  settingsStorage:ss.ISettingsStorage){
+                                  watchListSettingsStorage:ss.ISettingsStorage<ss.IWatchListSettings>,
+                                  settingsStorage:ss.ISettingsStorage<ss.IDashboardSettings>){
     return new WatchListSettingsDialog($q, $http, $rootScope, $compile, watchListSettingsStorage, settingsStorage);
 }
 
@@ -215,6 +216,6 @@ export function initPriceChartSettingsDialog($q:ng.IQService,
                                   $http:ng.IHttpService,
                                   $rootScope:ng.IRootScopeService,
                                   $compile:ng.ICompileService,
-                                  settingsStorage:ss.ISettingsStorage){
+                                  settingsStorage:ss.ISettingsStorage<ss.IDashboardSettings>){
     return new PriceChartSettingsDialog($q, $http, $rootScope, $compile, settingsStorage);
 }

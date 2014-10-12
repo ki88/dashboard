@@ -1,6 +1,11 @@
 /// <reference path="../../definitions/jquery.d.ts" />
 /// <reference path="../../definitions/typeahead.d.ts" />
 import fd = require('services/financeData')
+import m = require('model/model')
+
+export interface ICompanyAutocompleteScope extends ng.IScope{
+    currentCompany:m.ICompanyInfo
+}
 
 export function init(financeData:fd.IFinanceData) {
     return {
@@ -8,7 +13,7 @@ export function init(financeData:fd.IFinanceData) {
         scope: {
             currentCompany: '='
         },
-        link: function(scope, element){
+        link: function(scope:ICompanyAutocompleteScope, element){
             ($(element))
                 .addClass('company-autocomplete')
                 .typeahead({
@@ -23,12 +28,12 @@ export function init(financeData:fd.IFinanceData) {
                             scope.currentCompany = null;
                             scope.$apply();
                         }
-                        financeData.autocomplete(q).then(function(companies){
+                        financeData.autocomplete(q).then((companies:m.ICompanyInfo[])=>{
                             cb(companies);
                         });
                     }
                 })
-                .on('typeahead:selected', function(e, company?){
+                .on('typeahead:selected', function(e, company?:m.ICompanyInfo){
                     scope.currentCompany = company;
                     scope.$apply();
                 });

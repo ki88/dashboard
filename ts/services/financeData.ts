@@ -1,9 +1,10 @@
 /// <reference path="../../definitions/angular.d.ts" />
 /// <reference path="../../definitions/underscore.d.ts" />
+import m = require('model/model')
 
 export interface IFinanceData{
-    getQuote:(symbol:string)=>ng.IPromise<any>
-    autocomplete:(q:string)=>ng.IPromise<any>
+    getQuote:(symbol:string)=>ng.IPromise<m.IProductDetails>
+    autocomplete:(q:string)=>ng.IPromise<m.ICompanyInfo[]>
     getPriceChartData:(symbol:string, days:number)=>ng.IPromise<any>
 }
 

@@ -1,8 +1,19 @@
 /// <reference path="../../definitions/underscore.d.ts" />
+import m = require('model/model')
 import sd = require('services/settingsDialog')
 import ss = require('services/settingsStorage')
 
-export function init($scope, settingsDialog:sd.SettingsDialog, settingsStorage:ss.SettingsStorage){
+export interface IDashboarScope extends ng.IScope{
+    closeWatchListWidget:()=>void
+    closeTradeFeedWidget:()=>void
+    closePriceChart:(symbol:string)=>void
+    getActiveCharts: ()=>m.IChart[]
+    addPriceChart: (company:m.ICompanyInfo)=>void
+    openMainSettings: ()=>void
+    settings:ss.IDashboardSettings
+}
+
+export function init($scope:IDashboarScope, settingsDialog:sd.ISettingsDialog, settingsStorage:ss.ISettingsStorage<ss.IDashboardSettings>){
     $scope.settings = settingsStorage.get();
 
     $scope.openMainSettings = ()=> {
@@ -26,13 +37,13 @@ export function init($scope, settingsDialog:sd.SettingsDialog, settingsStorage:s
     }
 
     $scope.getActiveCharts = ()=>{
-        return _.filter($scope.settings.charts, (chart:any)=>{
+        return _.filter($scope.settings.charts, (chart:m.IChart)=>{
             return chart.isActive;
         });
     };
 
     $scope.addPriceChart = (company)=> {
-        var chart = _.find($scope.settings.charts, (chart:any)=>{
+        var chart = _.find($scope.settings.charts, (chart:m.IChart)=>{
             return chart.symbol == company.symbol;
         });
         if(!chart){
@@ -45,7 +56,7 @@ export function init($scope, settingsDialog:sd.SettingsDialog, settingsStorage:s
     };
 
     $scope.closePriceChart = (symbol)=>{
-        var chart = _.find($scope.settings.charts, (chart:any)=>{
+        var chart = _.find($scope.settings.charts, (chart:m.IChart)=>{
             return chart.symbol == symbol;
         });
         chart.isActive = false;

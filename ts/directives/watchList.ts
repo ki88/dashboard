@@ -1,8 +1,17 @@
 import sd = require('services/settingsDialog')
 import ss = require('services/settingsStorage')
 import fd = require('services/financeData')
+import m = require('model/model')
 
-export function init($q:ng.IQService, watchListSettingsDialog:sd.ISettingsDialog, settingsStorage:ss.ISettingsStorage, watchListSettingsStorage:ss.ISettingsStorage, financeData:fd.IFinanceData, errors:any) {
+export interface IWatchListScope extends ng.IScope {
+    closeWidget:()=>void
+    addPriceChart:(company:m.ICompanyInfo)=>void
+    settingsClick: ()=>void
+    message:string
+    quotes:m.IProductDetails[]
+}
+
+export function init($q:ng.IQService, watchListSettingsDialog:sd.ISettingsDialog, watchListSettingsStorage:ss.ISettingsStorage<ss.IWatchListSettings>, financeData:fd.IFinanceData, errors:any) {
     return {
         restrict: 'A',
         scope: {
@@ -10,15 +19,14 @@ export function init($q:ng.IQService, watchListSettingsDialog:sd.ISettingsDialog
             addPriceChart: '='
         },
         link: function(){
-            //
         },
-        controller: function($scope){
+        controller: function($scope:IWatchListScope){
 
-            var applySettings = (settings)=>{
-                var quotesPromise = _.map(settings, (item:any)=>{
+            var applySettings = (settings:ss.IWatchListSettings)=>{
+                var quotesPromise = _.map(<any>settings, (item:m.ICompanyInfo)=>{
                     return financeData.getQuote(item.symbol);
                 });
-                $q.all(quotesPromise).then((quotes)=>{
+                $q.all(quotesPromise).then((quotes:m.IProductDetails[])=>{
                         $scope.message = null;
                         $scope.quotes = quotes;
                     },
@@ -33,7 +41,7 @@ export function init($q:ng.IQService, watchListSettingsDialog:sd.ISettingsDialog
                 watchListSettingsDialog.open();
             };
 
-            var onSettingsChange = (newSettings?:any)=>{
+            var onSettingsChange = (newSettings?:ss.IWatchListSettings)=>{
                 applySettings(newSettings);
             };
 

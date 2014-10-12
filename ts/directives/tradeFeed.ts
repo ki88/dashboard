@@ -1,6 +1,16 @@
+/// <reference path="../../definitions/angular.d.ts" />
 /// <reference path="../../definitions/underscore.d.ts" />
+import m = require('model/model')
+
 declare var Parse:any;
 declare var humaneDate:(date:Date)=>string;
+
+export interface ITradeFeedScope extends ng.IScope {
+    usersActivity:m.IUserActivity[]
+    closeWidget:()=>void
+    message:string
+    beforeNow:(date:Date)=>string
+}
 
 export function init(errors:any) {
     return {
@@ -9,8 +19,8 @@ export function init(errors:any) {
             closeWidget: '='
         },
         link: function(scope, element) {},
-        controller: function($scope) {
-            Parse.initialize("clCmPyaT4LfjGsGjKuxGcF7Wt1CD6aE6urucljPA", "cnAXZ6Gae05VR2kzZk5sQtN0HRJwM9Y90Mk2LFBt");
+        controller: function($scope:ITradeFeedScope) {
+            Parse.initialize('clCmPyaT4LfjGsGjKuxGcF7Wt1CD6aE6urucljPA', 'cnAXZ6Gae05VR2kzZk5sQtN0HRJwM9Y90Mk2LFBt');
 
             $scope.usersActivity = [];
 
@@ -18,7 +28,7 @@ export function init(errors:any) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
             };
 
-            var converToUserActivity = function(item){
+            var converToUserActivity = (item:any):m.IUserActivity =>{
                 var name = capitaliseFirstLetter(item.user.attributes.firsname) + ' ' + capitaliseFirstLetter(item.user.attributes.lastname);
                 return {
                     user: {
