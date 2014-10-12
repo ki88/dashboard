@@ -14,11 +14,11 @@ export interface ISettingsStorage{
 }
 
 export class SettingsStorage implements ISettingsStorage {
-    constructor(private defStgs:any){
-        this.stgs = angular.copy(this.defStgs);
+    constructor(private defStgs:any, private key:string){
+        this.defaultSettings = angular.copy(this.defStgs);
     }
 
-    private stgs:any
+    private defaultSettings:any
     private handlers:{(settings?:any):void;}[] = []
 
     private fire(s:any){
@@ -28,17 +28,27 @@ export class SettingsStorage implements ISettingsStorage {
     }
 
     public get(){
-        return angular.copy(this.stgs);
+        var settingsStr = localStorage.getItem(this.key);
+        var settings = null;
+        if(settingsStr){
+            settings = JSON.parse(settingsStr);
+        }
+        else{
+            settings = angular.copy(this.defaultSettings);
+        }
+        return angular.copy(settings);
     }
 
     public set(settings:any){
-        this.stgs = angular.copy(settings);
-        this.fire(angular.copy(this.stgs));
+        var settingsStr = JSON.stringify(settings);
+        localStorage.setItem(this.key, settingsStr);
+        this.fire(angular.copy(settings));
     }
 
     public reset(){
-        this.stgs = angular.copy(this.defStgs);
-        this.fire(angular.copy(this.stgs));
+        var settingsStr = JSON.stringify(this.defaultSettings);
+        localStorage.setItem(this.key, settingsStr);
+        this.fire(angular.copy(this.defaultSettings));
     }
 
     public onChange(handler:ISettingsOnChangeHandler){
@@ -53,12 +63,26 @@ export class SettingsStorage implements ISettingsStorage {
     }
 }
 
+var defaults = {
+    watchList:true,
+    tradeFeed:true,
+    charts: [
+        { symbol:'AAPL', name: 'Apple Inc', period: '12m', isActive: true },
+        { symbol:'GOOGL', name: 'Google Inc', period: '12m', isActive: false },
+        { symbol:'MSFT', name: 'Microsoft Corp', period: '12m', isActive: false },
+        { symbol:'KO', name: 'The Coca-Cola Co', period: '12m', isActive: false },
+        { symbol:'F', name: 'Ford Motor Co', period: '12m', isActive: false }
+    ],
+    chartsAsNewWidgets:true
+};
+
 export function initMain(){
-    var defaults = {watchList:true, tradeFeed:true, charts: [{symbol:'AAPL', name: 'Apple Inc', period: '1m', isActive: true}], chartsAsNewWidgets:false};
-    return new SettingsStorage(defaults);
+    return new SettingsStorage(defaults, 'watch-list-settings');
 }
 
 export function initWatchList(){
-    var defaults = [{symbol:'AAPL', name: 'Apple Inc'}];
-    return new SettingsStorage(defaults);
+    var defs = _.map(defaults.charts, (chart:any)=>{
+        return {symbol:chart.symbol, name:chart.name};
+    });
+    return new SettingsStorage(defs, 'dashboard-settings');
 }

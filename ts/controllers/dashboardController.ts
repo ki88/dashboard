@@ -36,7 +36,7 @@ export function init($scope, settingsDialog:sd.SettingsDialog, settingsStorage:s
             return chart.symbol == company.symbol;
         });
         if(!chart){
-            $scope.settings.charts.push({name:company.name, symbol: company.symbol, period: '1m', isActive: true});
+            $scope.settings.charts.push({name:company.name, symbol: company.symbol, period: '12m', isActive: true});
             settingsStorage.set($scope.settings);
         } else if(!chart.isActive){
             chart.isActive = true;
