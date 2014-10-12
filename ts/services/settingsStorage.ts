@@ -54,7 +54,7 @@ export class SettingsStorage implements ISettingsStorage {
 }
 
 export function initMain(){
-    var defaults = {watchList:true, tradeFeed:true, charts: [{symbol:'AAPL', name: 'Apple Inc', period: '1m', isActive: true}]};
+    var defaults = {watchList:true, tradeFeed:true, charts: [{symbol:'AAPL', name: 'Apple Inc', period: '1m', isActive: true}], chartsAsNewWidgets:false};
     return new SettingsStorage(defaults);
 }
 

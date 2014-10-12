@@ -79,11 +79,13 @@ export class WatchListSettingsDialog extends SettingsDialogBase {
                 $http:ng.IHttpService,
                 $rootScope:ng.IRootScopeService,
                 $compile:ng.ICompileService,
-                watchListSettingsStorage:ss.ISettingsStorage){
+                watchListSettingsStorage:ss.ISettingsStorage,
+                settingsStorage:ss.ISettingsStorage){
         super((scope:any)=>{
                 scope.header = 'Watch List Settings';
 
                 scope.settings = watchListSettingsStorage.get();
+                scope.mainSettings = settingsStorage.get();
 
                 scope.addCompany = (company)=>{
                     scope.settings.push(company);
@@ -110,10 +112,12 @@ export class WatchListSettingsDialog extends SettingsDialogBase {
 
                 scope.save = ()=>{
                     watchListSettingsStorage.set(scope.settings);
+                    settingsStorage.set(scope.mainSettings);
                     isDirty = false;
                 };
                 scope.reset = ()=>{
                     scope.settings = watchListSettingsStorage.get();
+                    scope.mainSettings = settingsStorage.get();
                     isDirty = null;
                 };
 
@@ -122,7 +126,7 @@ export class WatchListSettingsDialog extends SettingsDialogBase {
                 };
 
                 var isDirty = null;
-                scope.$watch('settings', ()=>{
+                scope.$watch('[settings,mainSettings]', ()=>{
                     isDirty = !(_.isNull(isDirty));
                 }, true);
         },
@@ -202,8 +206,9 @@ export function initWatchListSettingsDialog($q:ng.IQService,
                                   $http:ng.IHttpService,
                                   $rootScope:ng.IRootScopeService,
                                   $compile:ng.ICompileService,
-                                  watchListSettingsStorage:ss.ISettingsStorage){
-    return new WatchListSettingsDialog($q, $http, $rootScope, $compile, watchListSettingsStorage);
+                                  watchListSettingsStorage:ss.ISettingsStorage,
+                                  settingsStorage:ss.ISettingsStorage){
+    return new WatchListSettingsDialog($q, $http, $rootScope, $compile, watchListSettingsStorage, settingsStorage);
 }
 
 export function initPriceChartSettingsDialog($q:ng.IQService,

@@ -46,7 +46,6 @@ export function init() {
                     $scope.$apply();
                 },
                 error: (result)=> {
-                    // show error
                 }
             });
 
@@ -67,7 +66,7 @@ export function init() {
                     },
                     error: (result)=>{ /* Show error */ }
                 });
-            }, 5000);
+            }, 50000);
 
             var intervalIdTimeUpdates = setInterval(()=>{
                 $scope.$apply();
