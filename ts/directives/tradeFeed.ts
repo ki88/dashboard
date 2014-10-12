@@ -18,7 +18,7 @@ export function init(errors:any) {
         scope: {
             closeWidget: '='
         },
-        link: function(scope, element) {},
+        link: function(scope:ITradeFeedScope, element) {},
         controller: function($scope:ITradeFeedScope) {
             Parse.initialize('clCmPyaT4LfjGsGjKuxGcF7Wt1CD6aE6urucljPA', 'cnAXZ6Gae05VR2kzZk5sQtN0HRJwM9Y90Mk2LFBt');
 
