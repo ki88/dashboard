@@ -10,5 +10,6 @@
                 <span ng-click="closeWidget(settings.symbol)" class="control glyphicon glyphicon-remove"></span>
               </span>
     </div>
-    <div class="chart-container"></div>
+    <div ng-hide="message" class="chart-container"></div>
+    <div ng-show="message" class="message">{{message}}</div>
 </div>

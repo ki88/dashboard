@@ -2,7 +2,7 @@ import sd = require('services/settingsDialog')
 import ss = require('services/settingsStorage')
 import fd = require('services/financeData')
 
-export function init($q:ng.IQService, watchListSettingsDialog:sd.ISettingsDialog, settingsStorage:ss.ISettingsStorage, watchListSettingsStorage:ss.ISettingsStorage, financeData:fd.IFinanceData) {
+export function init($q:ng.IQService, watchListSettingsDialog:sd.ISettingsDialog, settingsStorage:ss.ISettingsStorage, watchListSettingsStorage:ss.ISettingsStorage, financeData:fd.IFinanceData, errors:any) {
     return {
         restrict: 'A',
         scope: {
@@ -19,8 +19,12 @@ export function init($q:ng.IQService, watchListSettingsDialog:sd.ISettingsDialog
                     return financeData.getQuote(item.symbol);
                 });
                 $q.all(quotesPromise).then((quotes)=>{
-                    $scope.quotes = quotes;
-                });
+                        $scope.message = null;
+                        $scope.quotes = quotes;
+                    },
+                    ()=>{
+                        $scope.message = errors.requestError;
+                    });
             };
 
             applySettings(watchListSettingsStorage.get());

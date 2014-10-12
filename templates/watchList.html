@@ -10,7 +10,7 @@
                 <span ng-click="closeWidget()" class="control glyphicon glyphicon-remove"></span>
               </span>
     </div>
-    <div class="content">
+    <div class="content" ng-hide="message">
         <table class="table dashboard-table">
             <thead>
             <tr>
@@ -38,4 +38,5 @@
             </tbody>
         </table>
     </div>
+    <div ng-show="message" class="message">{{message}}</div>
 </div>

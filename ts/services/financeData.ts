@@ -16,6 +16,9 @@ export class FinanceData implements IFinanceData {
             .success((data:any)=>{
                 var quote = {symbol:data.Symbol, name: data.Name, lastPrice: data.LastPrice, volume: data.Volume, change: data.Change};
                 return deferred.resolve(quote);
+            })
+            .error(()=>{
+                return deferred.reject();
             });
         return deferred.promise;
     }
@@ -29,6 +32,9 @@ export class FinanceData implements IFinanceData {
                 });
                 return deferred.resolve(companies);
             })
+            .error(()=>{
+                return deferred.reject();
+            });
         return deferred.promise;
     }
 
@@ -69,6 +75,9 @@ export class FinanceData implements IFinanceData {
                 }
                 return deferred.resolve(chartSeries);
             })
+            .error(()=>{
+                return deferred.reject();
+            });
         return deferred.promise;
     }
 }

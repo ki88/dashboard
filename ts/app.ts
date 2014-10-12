@@ -7,7 +7,7 @@ import buyController = require('controllers/buyController');
 import financeData = require('services/financeData');
 import settingsStorage = require('services/settingsStorage');
 import settingsDialog = require('services/settingsDialog');
-import tooltips = require('services/tooltips');
+import messages = require('services/messages');
 
 import companyAutocomplete = require('directives/companyAutocomplete');
 import watchList = require('directives/watchList');
@@ -41,7 +41,8 @@ app.controller('dashboardController', dashboardController.init);
 app.controller('detailsController', detailsController.init);
 app.controller('buyController', buyController.init);
 
-app.constant('tooltips', tooltips);
+app.constant('tooltips', messages.tooltips);
+app.constant('errors', messages.errors);
 app.factory('financeData', financeData.init);
 app.factory('settingsStorage', settingsStorage.initMain);
 app.factory('watchListSettingsStorage', settingsStorage.initWatchList);

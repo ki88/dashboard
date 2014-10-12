@@ -2,7 +2,7 @@
 declare var Parse:any;
 declare var humaneDate:(date:Date)=>string;
 
-export function init() {
+export function init(errors:any) {
     return {
         restrict: 'A',
         scope: {
@@ -46,6 +46,8 @@ export function init() {
                     $scope.$apply();
                 },
                 error: (result)=> {
+                    $scope.message = errors.requestError;
+                    $scope.$apply();
                 }
             });
 
@@ -55,6 +57,8 @@ export function init() {
                     chance: 0.01
                 }, {
                     success: (result)=>{
+                        $scope.message = null;
+
                         if(_.isEmpty(result)){
                             return;
                         }

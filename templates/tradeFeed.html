@@ -9,7 +9,7 @@
             <span ng-click="closeWidget()" class="control glyphicon glyphicon-remove"></span>
         </span>
     </div>
-    <div class="users-activity">
+    <div ng-hide="message" class="users-activity">
         <div ng-repeat="ua in usersActivity" class="entry">
             <div class="deal-info">
                 <div class="action">{{{'1':'Bought','2':'Sell'}[ua.action]}}</div>
@@ -27,4 +27,5 @@
             </div>
         </div>
     </div>
+    <div ng-show="message" class="message">{{message}}</div>
 </div>
