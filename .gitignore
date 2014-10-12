@@ -1,4 +1,5 @@
 *.iml
 .idea/
+less/**/*.css
 ts/**/*.js
 ts/**/*.map
