@@ -12,7 +12,7 @@ export class FinanceData implements IFinanceData {
 
     public getQuote(symbol:string) {
         var deferred = this.$q.defer();
-        this.$http.jsonp('http://dev.markitondemand.com/Api/v2/Quote/jsonp?callback=JSON_CALLBACK', {params:{symbol:symbol}})
+        this.$http.jsonp('http://dev.markitondemand.com/Api/v2/Quote/jsonp?callback=JSON_CALLBACK', {params:{symbol:symbol}, cache:true})
             .success((data:any)=>{
                 var quote = {symbol:data.Symbol, name: data.Name, lastPrice: data.LastPrice, volume: data.Volume, change: data.Change};
                 return deferred.resolve(quote);
@@ -52,7 +52,8 @@ export class FinanceData implements IFinanceData {
                         Params: ['c']
                     }]
                 }
-            }
+            },
+            cache:true
         })
             .success(function(json:any) {
                 var dates = json.Dates || [];
