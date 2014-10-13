@@ -1,5 +1,5 @@
 <div class="settings-content main-settings-content">
-    <div class="entry">
+    <div class="entry watch-list-entry">
         <span class="icon glyphicon glyphicon-list"></span>
             <span class="description">
               Watch List
@@ -8,7 +8,7 @@
               <label><input ng-model="settings.watchList" type="checkbox" name="checkbox" value="value"> Show</label>
             </span>
     </div>
-    <div class="entry">
+    <div class="entry trade-feed-entry">
         <span class="icon glyphicon glyphicon-user"></span>
             <span class="description">
               Trade Feed
@@ -17,7 +17,7 @@
               <label><input ng-model="settings.tradeFeed" type="checkbox" name="checkbox" value="value"> Show</label>
             </span>
     </div>
-    <div ng-repeat="chart in settings.charts" class="entry">
+    <div ng-repeat="chart in settings.charts" class="entry price-chart-entry">
         <span class="icon glyphicon glyphicon-stats"></span>
             <span class="description">
               Price Chart ({{chart.name}})
