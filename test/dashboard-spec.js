@@ -5,7 +5,6 @@ describe('dashboard', function() {
 
     beforeEach(function() {
         browser.get('http://localhost:63342/dashboard');
-        browser.executeScript("window.localStorage.clear()");
     });
 
     afterEach(function() {
