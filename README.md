@@ -1,7 +1,7 @@
 dashboard
 =========
 
-Solution for Dashboard Assignment
+AngularJs application which represents user dashboard with a number of customizable widgets and ability to persist their state and settings across sessions. Application layout adopted for different screens (desktop/tablets/phones).
 
 Here is the [demo]
 
